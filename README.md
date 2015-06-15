@@ -1,2 +1,2 @@
-# geobricks_mod16
-MOD16 Plugin for Geobricks Downloader
+# MOD16 Project Plugin for Geobricks Downloader
+MOD16 Project Plugin for Geobricks Downloader
