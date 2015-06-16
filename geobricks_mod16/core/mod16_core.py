@@ -7,45 +7,30 @@ from geobricks_mod16.config.gaul2modis import countries_map
 from geobricks_mod16.config.mod16_config import config as conf
 
 
-def list_years():
-    """
-    List all the available years for the MOD16 Project.
-    @return: An array of code/label objects.
-    """
-    if conf['source']['type'] == 'FTP':
-        ftp = FTP(conf['source']['ftp']['base_url'])
-        ftp.login()
-        ftp.cwd(conf['source']['ftp']['data_dir'])
-        l = ftp.nlst()
-        ftp.quit()
-        l.sort(reverse=True)
-        out = []
-        for s in l:
-            out.append({'code': s, 'label': s[1:]})
-        return out
-
-def list_days(year):
-    """
-    List all the available days for a given MODIS product and year.
-    @param year: e.g. '2010'
-    @type year: str | int
-    @return: An array of code/label objects.
-    """
-    year = year if type(year) is str else str(year)
-    year = year if year[0] == 'Y' else 'Y' + year
-    if conf['source']['type'] == 'FTP':
-        ftp = FTP(conf['source']['ftp']['base_url'])
-        ftp.login()
-        ftp.cwd(conf['source']['ftp']['data_dir'])
-        ftp.cwd(year)
-        l = ftp.nlst()
-        ftp.quit()
-        l.sort()
-        out = []
-        for s in l:
-            date = day_of_the_year_to_date(s, year).strftime('%d %B')
-            out.append({'code': s, 'label': date})
-        return out
+def list_layers(product_type):
+    ftp = FTP(conf['source']['ftp']['base_url'])
+    ftp.login()
+    ftp.cwd(conf['source']['ftp']['data_dir'])
+    ls = []
+    ftp.retrlines('NLST', ls.append)
+    ftp.quit()
+    out = []
+    tmp_buffer = []
+    for line in ls:
+        try:
+            if '_' + product_type + '_' in line and line not in tmp_buffer:
+                tmp_buffer.append(line)
+                file_path = 'ftp://' + conf['source']['ftp']['base_url'] + conf['source']['ftp']['data_dir']
+                file_path += line
+                out.append({
+                    'file_name': line,
+                    'file_path': file_path,
+                    'label': line,
+                    'size': None
+                })
+        except ValueError:
+            pass
+    return out
 
 def day_of_the_year_to_date(day, year):
     """

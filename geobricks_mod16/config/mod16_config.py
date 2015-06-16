@@ -4,7 +4,7 @@ config = {
         "type": "FTP",
         "ftp": {
             "base_url": "ftp.ntsg.umt.edu",
-            "data_dir": "/pub/MODIS/NTSG_Products/MOD16/MOD16A2.105_MERRAGMAO/"
+            "data_dir": "/pub/MODIS/NTSG_Products/MOD16/MOD16A2_MONTHLY.MERRA_GMAO_1kmALB/GEOTIFF_0.05degree/"
         }
     },
     "processing": [
