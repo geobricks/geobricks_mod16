@@ -3,6 +3,12 @@ from geobricks_mod16.config.mod16_config import config as conf
 
 
 def list_layers(product_type):
+    """
+    List all the available layers for the given product type.
+    @param product_type: 'ET' or 'PET'.
+    @type product_type: str
+    @return: List of code/label objects.
+    """
     ftp = FTP(conf['source']['ftp']['base_url'])
     ftp.login()
     ftp.cwd(conf['source']['ftp']['data_dir'])
