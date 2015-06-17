@@ -1,3 +1,4 @@
+# import os
 from ftplib import FTP
 from geobricks_mod16.config.mod16_config import config as conf
 
@@ -29,3 +30,17 @@ def list_layers(product_type):
                 'size': None
             })
     return out
+
+# def download(product_type):
+#     ftp = FTP(conf['source']['ftp']['base_url'])
+#     ftp.login()
+#     ftp.cwd(conf['source']['ftp']['data_dir'])
+#     file_names = ftp.nlst()
+#     for filename in file_names:
+#         print 'Downloading ' + filename + '...'
+#         local_filename = os.path.join('/home/kalimaha/Desktop/MOD16/', filename)
+#         file = open(local_filename, 'wb')
+#         ftp.retrbinary('RETR '+ filename, file.write)
+#         file.close()
+#         print '\t...done.'
+#     ftp.quit()

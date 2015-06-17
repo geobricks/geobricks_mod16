@@ -9,3 +9,6 @@ class GeobricksMod16Test(unittest.TestCase):
         self.assertEqual(len(out), 180)
         out = c.list_layers('ET')
         self.assertEqual(len(out), 180)
+
+    # def test_download(self):
+    #     c.download('ET')
